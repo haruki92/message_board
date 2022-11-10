@@ -37,11 +37,11 @@ public class Message {
 	@Column(name = "updated_at", nullable = false)
 	private Timestamp updated_at;
 
-	public Integer getIdInteger() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setIdInteger(Integer idInteger) {
+	public void setId(Integer idInteger) {
 		this.id = idInteger;
 	}
 
@@ -76,6 +76,8 @@ public class Message {
 	public void setUpdated_at(Timestamp updated_at) {
 		this.updated_at = updated_at;
 	}
+
+	
 	
 	
 }
