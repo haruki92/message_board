@@ -1,9 +1,9 @@
 package controllers;
 
 import java.io.IOException;
-import java.sql.Timestamp;
 
 import javax.persistence.EntityManager;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -35,29 +35,14 @@ public class NewServlet extends HttpServlet {
 		EntityManager em = DBUtil.createEntityManager();
 		em.getTransaction().begin();
 		
-//		Messageのインスタンスを生成
-		Message m = new Message();
+//		CSRF対策
+		request.setAttribute("_token", request.getSession().getId());
 		
-//		mの各フィールドにデータを代入
-		String title = "taro";
-		m.setTitle(title);
+//		おまじないとしてのインスタンスを生成
+		request.setAttribute("message", new Message());
 		
-		String content = "hello";
-		m.setContent(content);
-		
-//		現在の日時を取得
-		Timestamp currentTime = new Timestamp(System.currentTimeMillis());
-		m.setCreated_at(currentTime);
-		m.setUpdated_at(currentTime);
-		
-//		データベースに保存
-		em.persist(m);
-		em.getTransaction().commit();
-		
-//		自動裁判されたIDの値を表示
-		response.getWriter().append(Integer.valueOf(m.getId()).toString());
-		
-		em.close();
-	}
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/messages/new.jsp");
+		rd.forward(request, response);
 
-}
+		}
+	}
