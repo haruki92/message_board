@@ -21,7 +21,6 @@ public class EncodingFilter extends HttpFilter implements Filter {
      * @see HttpFilter#HttpFilter()
      */
     public EncodingFilter() {
-        super();
         // TODO Auto-generated constructor stub
     }
 
